@@ -93,4 +93,13 @@ public class SimpleGraphTest {
             Assert.assertEquals("Graph capacity exhaused", e.getMessage());
         }
     }
+
+    @Test
+    public void givenSpecifiedGraphCapacityIsTooLarge_whenItsCreated_thenAnExceptionIsThrown() {
+        try {
+            SimpleGraph<String> graph = new SimpleGraph<>(100000);
+        } catch (RuntimeException e) {
+            Assert.assertEquals("The maximum number of vertices is " + SimpleGraph.MAX_NUM_VERTICES, e.getMessage());
+        }
+    }
 }

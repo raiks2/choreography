@@ -17,7 +17,7 @@ public class SimpleGraph<V> implements Graph<V> {
     private int numVertices;
 
     private static final int DEFAULT_NUM_VERTICES = 50;
-    private final int MAX_NUM_VERTICES = 1000;
+    static final int MAX_NUM_VERTICES = 1000;
 
     public SimpleGraph(int numVertices) {
         if (numVertices > MAX_NUM_VERTICES) {
