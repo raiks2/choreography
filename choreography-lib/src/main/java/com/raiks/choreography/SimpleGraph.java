@@ -52,12 +52,12 @@ public class SimpleGraph<V> implements Graph<V> {
     }
 
     @Override
-    public void bfs(V start) {
+    public void bfs(V startVertex) {
         Queue<V> queue = new LinkedList<>();
         boolean[] visited = new boolean[vertexToIndex.size()];
 
-        queue.add(start);
-        int index = vertexToIndex.get(start);
+        queue.add(startVertex);
+        int index = vertexToIndex.get(startVertex);
         visited[index] = true;
 
         while(!queue.isEmpty()) {
@@ -76,17 +76,17 @@ public class SimpleGraph<V> implements Graph<V> {
     }
 
     @Override
-    public void dfs(V start) {
+    public void dfs(V startVertex) {
         boolean[] visited = new boolean[vertexToIndex.size()];
-        dfs(start, visited);
+        dfs(startVertex, visited);
     }
 
-    private void dfs(V start, boolean[] visited) {
-        System.out.print(start + " ");
-        int index = vertexToIndex.get(start);
+    private void dfs(V startVertex, boolean[] visited) {
+        System.out.print(startVertex + " ");
+        int index = vertexToIndex.get(startVertex);
         visited[index] = true;
 
-        List<V> ajacentVertices = getAdjacentVertices(start);
+        List<V> ajacentVertices = getAdjacentVertices(startVertex);
         for(V ajacentVertex : ajacentVertices) {
             int aIndex = vertexToIndex.get(ajacentVertex);
             if(!visited[aIndex]) {
