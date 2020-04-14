@@ -99,6 +99,10 @@ public class SimpleGraph<V> implements Graph<V> {
         return pathToVertex;
     }
 
+    /**
+     * Performs the depth-first search of the needle. If needle if found, returns true, false otherwise
+     * After a method call, pathToVertex contains a path to the needle if it was found, or en empty collection
+     */
     private boolean dfs(V startVertex, V needle, boolean[] visited, Deque<V> pathToVertex) {
         System.out.print(startVertex + " ");
         int index = vertexToIndex.get(startVertex);
