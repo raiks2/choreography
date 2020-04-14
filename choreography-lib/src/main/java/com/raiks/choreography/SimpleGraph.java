@@ -10,7 +10,7 @@ import java.util.Queue;
 public class SimpleGraph<V> implements Graph<V> {
     private Map<V, Integer> vertexToIndex = new HashMap<>();
     private List<V> indexToVertex = new ArrayList<>();
-    private int[][] adjecencyMatrix;
+    private int[][] adjacencyMatrix;
     private int mostRecentVertexIndex = 0;
     private int numVertices;
 
@@ -20,7 +20,7 @@ public class SimpleGraph<V> implements Graph<V> {
         if (numVertices > MAX_NUM_VERTICES) {
             throw new RuntimeException(String.format("The maximum number of vertices is %d", MAX_NUM_VERTICES));
         }
-        adjecencyMatrix = new int[numVertices][numVertices];
+        adjacencyMatrix = new int[numVertices][numVertices];
         this.numVertices = numVertices;
     }
 
@@ -34,7 +34,7 @@ public class SimpleGraph<V> implements Graph<V> {
     }
 
     private void markEdgeInAdjecencyMatrix(int fromIndex, int toIndex) {
-        adjecencyMatrix[fromIndex][toIndex] = 1;
+        adjacencyMatrix[fromIndex][toIndex] = 1;
     }
 
     @Override
@@ -64,11 +64,11 @@ public class SimpleGraph<V> implements Graph<V> {
             V queuedVertex = queue.poll();
             System.out.print(queuedVertex + " ");
 
-            List<V> adjecentVertices = getAdjacentVertices(queuedVertex);
-            for(V adjecentVertex : adjecentVertices) {
-                int aIndex = vertexToIndex.get(adjecentVertex);
+            List<V> ajacentVertices = getAdjacentVertices(queuedVertex);
+            for(V ajacentVertex : ajacentVertices) {
+                int aIndex = vertexToIndex.get(ajacentVertex);
                 if(!visited[aIndex]) {
-                    queue.add(adjecentVertex);
+                    queue.add(ajacentVertex);
                     visited[aIndex] = true;
                 }
             }
@@ -86,11 +86,11 @@ public class SimpleGraph<V> implements Graph<V> {
         int index = vertexToIndex.get(start);
         visited[index] = true;
 
-        List<V> adjecentVertices = getAdjacentVertices(start);
-        for(V adjecentVertex : adjecentVertices) {
-            int aIndex = vertexToIndex.get(adjecentVertex);
+        List<V> ajacentVertices = getAdjacentVertices(start);
+        for(V ajacentVertex : ajacentVertices) {
+            int aIndex = vertexToIndex.get(ajacentVertex);
             if(!visited[aIndex]) {
-                dfs(adjecentVertex, visited);
+                dfs(ajacentVertex, visited);
             }
         }
     }
@@ -98,8 +98,8 @@ public class SimpleGraph<V> implements Graph<V> {
     private List<V> getAdjacentVertices(V vertex) {
         int index = vertexToIndex.get(vertex);
         List<V> result = new ArrayList<>();
-        for(int i = 0; i < adjecencyMatrix[index].length; i++) {
-            boolean edgeExists = adjecencyMatrix[index][i] == 1;
+        for(int i = 0; i < adjacencyMatrix[index].length; i++) {
+            boolean edgeExists = adjacencyMatrix[index][i] == 1;
             if (edgeExists) {
                 result.add(indexToVertex.get(i));
             }
