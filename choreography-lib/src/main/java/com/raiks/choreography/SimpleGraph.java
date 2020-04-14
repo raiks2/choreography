@@ -1,6 +1,8 @@
 package com.raiks.choreography;
 
 import java.util.ArrayList;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -82,10 +84,13 @@ public class SimpleGraph<V> implements Graph<V> {
     @Override
     public boolean dfs(V startVertex, V needle) {
         boolean[] visited = new boolean[vertexToIndex.size()];
-        return dfs(startVertex, needle, visited);
+        Deque<V> pathToVertex = new ArrayDeque<>();
+        boolean result = dfs(startVertex, needle, visited, pathToVertex);
+        System.err.println(pathToVertex.toString());
+        return result;
     }
 
-    private boolean dfs(V startVertex, V needle, boolean[] visited) {
+    private boolean dfs(V startVertex, V needle, boolean[] visited, Deque<V> pathToVertex) {
         System.out.print(startVertex + " ");
         int index = vertexToIndex.get(startVertex);
         visited[index] = true;
@@ -94,16 +99,20 @@ public class SimpleGraph<V> implements Graph<V> {
             return true;
         }
 
+        pathToVertex.push(startVertex);
+
         List<V> ajacentVertices = getAdjacentVertices(startVertex);
         for(V ajacentVertex : ajacentVertices) {
             int aIndex = vertexToIndex.get(ajacentVertex);
             if(!visited[aIndex]) {
-                found = dfs(ajacentVertex, needle, visited);
+                found = dfs(ajacentVertex, needle, visited, pathToVertex);
                 if (found) {
                     return true;
                 }
             }
         }
+
+        pathToVertex.pop();
         return false;
     }
 
