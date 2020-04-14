@@ -76,23 +76,31 @@ public class SimpleGraph<V> implements Graph<V> {
     }
 
     @Override
-    public void dfs(V startVertex) {
+    public boolean dfs(V startVertex, V needle) {
         boolean[] visited = new boolean[vertexToIndex.size()];
-        dfs(startVertex, visited);
+        return dfs(startVertex, needle, visited);
     }
 
-    private void dfs(V startVertex, boolean[] visited) {
+    private boolean dfs(V startVertex, V needle, boolean[] visited) {
         System.out.print(startVertex + " ");
         int index = vertexToIndex.get(startVertex);
         visited[index] = true;
+        boolean found = startVertex.equals(needle);
+        if (found) {
+            return true;
+        }
 
         List<V> ajacentVertices = getAdjacentVertices(startVertex);
         for(V ajacentVertex : ajacentVertices) {
             int aIndex = vertexToIndex.get(ajacentVertex);
             if(!visited[aIndex]) {
-                dfs(ajacentVertex, visited);
+                found = dfs(ajacentVertex, needle, visited);
+                if (found) {
+                    return true;
+                }
             }
         }
+        return false;
     }
 
     private List<V> getAdjacentVertices(V vertex) {
