@@ -16,6 +16,7 @@ public class SimpleGraph<V> implements Graph<V> {
     private int mostRecentVertexIndex = 0;
     private int numVertices;
 
+    private static final int DEFAULT_NUM_VERTICES = 50;
     private final int MAX_NUM_VERTICES = 1000;
 
     public SimpleGraph(int numVertices) {
@@ -24,6 +25,10 @@ public class SimpleGraph<V> implements Graph<V> {
         }
         adjacencyMatrix = new int[numVertices][numVertices];
         this.numVertices = numVertices;
+    }
+
+    public SimpleGraph() {
+        this(DEFAULT_NUM_VERTICES);
     }
 
     @Override
@@ -81,13 +86,17 @@ public class SimpleGraph<V> implements Graph<V> {
         }
     }
 
+    boolean vertexExists(V vertex) {
+        return vertexToIndex.containsKey(vertex);
+    }
+
     @Override
-    public boolean dfs(V startVertex, V needle) {
+    public Deque<V> findPath(V startVertex, V endVertex) {
         boolean[] visited = new boolean[vertexToIndex.size()];
         Deque<V> pathToVertex = new ArrayDeque<>();
-        boolean result = dfs(startVertex, needle, visited, pathToVertex);
-        System.err.println(pathToVertex.toString());
-        return result;
+        dfs(startVertex, endVertex, visited, pathToVertex);
+        System.err.println("\npath =" + pathToVertex.toString());
+        return pathToVertex;
     }
 
     private boolean dfs(V startVertex, V needle, boolean[] visited, Deque<V> pathToVertex) {
