@@ -7,29 +7,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class SimpleGraphTest {
-    /*
-    public void given_vertexDoesntExist_whenItsAddedToGraph_thenItCanBeFoundInGraph() {
-         Graph<String> graph = new SimpleGraph<>();
-         graph.addVertex("Vertex one");
-         String vertex = graph.findVertex(v -> v.equals("Vertex one"));
-         Assert.assertEquals(vertex, "Vertex one");
-    }
-    */
-
-    private SimpleGraph<String> buildGraph() {
-        SimpleGraph<String> graph = new SimpleGraph<>(10);
-        graph.addVertex("Vertex one");
-        graph.addVertex("Vertex two");
-        graph.addVertex("Vertex three");
-        graph.addVertex("Vertex four");
-        graph.addVertex("Vertex five");
-        graph.addEdge("Vertex one", "Vertex two");
-        graph.addEdge("Vertex two", "Vertex three");
-        graph.addEdge("Vertex two", "Vertex four");
-        graph.addEdge("Vertex three", "Vertex five");
-        return graph;
-    }
-
     @Test
     public void givenVertexExists_whenItsExistenceIsChecked_thenItIsConfirmed() {
         SimpleGraph<String> graph = buildGraph();
@@ -102,4 +79,19 @@ public class SimpleGraphTest {
             Assert.assertEquals("The maximum number of vertices is " + SimpleGraph.MAX_NUM_VERTICES, e.getMessage());
         }
     }
+
+    private SimpleGraph<String> buildGraph() {
+        SimpleGraph<String> graph = new SimpleGraph<>(10);
+        graph.addVertex("Vertex one");
+        graph.addVertex("Vertex two");
+        graph.addVertex("Vertex three");
+        graph.addVertex("Vertex four");
+        graph.addVertex("Vertex five");
+        graph.addEdge("Vertex one", "Vertex two");
+        graph.addEdge("Vertex two", "Vertex three");
+        graph.addEdge("Vertex two", "Vertex four");
+        graph.addEdge("Vertex three", "Vertex five");
+        return graph;
+    }
+
 }
