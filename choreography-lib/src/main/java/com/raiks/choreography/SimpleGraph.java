@@ -46,7 +46,7 @@ public class SimpleGraph<V> implements Graph<V> {
         if (vertexToIndex.containsKey(v)) {
             throw new RuntimeException("Vertex already exists");
         }
-        boolean capacityExhausted = mostRecentVertexIndex == numVertices - 1;
+        boolean capacityExhausted = mostRecentVertexIndex == numVertices;
         if (capacityExhausted) {
             throw new RuntimeException("Graph capacity exhaused");
         }
