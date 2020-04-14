@@ -26,8 +26,12 @@ public class SimpleGraph<V> implements Graph<V> {
 
     @Override
     public void addEdge(V from, V to) {
-        addVertex(from);
-        addVertex(to);
+        if (!vertexToIndex.containsKey(from)) {
+            throw new RuntimeException("The 'from' vertex you're trying to create an edge for doesn't exist");
+        }
+        if (!vertexToIndex.containsKey(to)) {
+            throw new RuntimeException("The 'to' vertex you're trying to create an edge for doesn't exist");
+        }
         int fromIndex = vertexToIndex.get(from);
         int toIndex = vertexToIndex.get(to);
         markEdgeInAdjecencyMatrix(fromIndex, toIndex);
