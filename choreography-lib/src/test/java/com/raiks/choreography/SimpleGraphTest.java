@@ -8,19 +8,19 @@ import org.junit.Test;
 
 public class SimpleGraphTest {
     @Test
-    public void givenVertexExists_whenItsExistenceIsChecked_thenItIsConfirmed() {
+    public void test_givenVertexExists_whenItsExistenceIsChecked_thenItIsConfirmed() {
         SimpleGraph<String> graph = buildGraph();
         Assert.assertTrue(graph.vertexExists("Vertex five"));
     }
 
     @Test
-    public void givenVertexDoesntExist_whenItsExistenceIsChecked_thenItIsNotConfirmed() {
+    public void test_givenVertexDoesntExist_whenItsExistenceIsChecked_thenItIsNotConfirmed() {
         SimpleGraph<String> graph = buildGraph();
         Assert.assertFalse(graph.vertexExists("Vertex six"));
     }
 
     @Test
-    public void given_pathExists_whenItsChecked_thenItCanBeDiscovered() {
+    public void test_given_pathExists_whenItsChecked_thenItCanBeDiscovered() {
         SimpleGraph<String> graph = buildGraph();
         Deque<String> pathBetweenVertices = graph.findPath("Vertex two", "Vertex five");
         Assert.assertTrue(pathBetweenVertices.size() == 2);
@@ -29,7 +29,7 @@ public class SimpleGraphTest {
     }
 
     @Test
-    public void given_pathDoesntExist_whenItsChecked_thenItCanNotBeDiscovered() {
+    public void test_given_pathDoesntExist_whenItsChecked_thenItCanNotBeDiscovered() {
         SimpleGraph<String> graph = buildGraph();
         // Adding a strongly connected component. Vertex six is unreachable
         graph.addVertex("Vertex six");
@@ -39,7 +39,7 @@ public class SimpleGraphTest {
     }
 
     @Test
-    public void givenVertexAlreadyExists_whenAttemptToAddItIsMade_thenAnExceptionIsThrown() {
+    public void test_givenVertexAlreadyExists_whenAttemptToAddItIsMade_thenAnExceptionIsThrown() {
         try {
             SimpleGraph<String> graph = new SimpleGraph<>();
             graph.addVertex("Vertex one");
@@ -50,7 +50,7 @@ public class SimpleGraphTest {
     }
 
     @Test
-    public void givenVertexDoesntExist_whenAttemptToAddEdgeIsMade_thenAnExceptionIsThrown() {
+    public void test_givenVertexDoesntExist_whenAttemptToAddEdgeIsMade_thenAnExceptionIsThrown() {
         try {
             SimpleGraph<String> graph = new SimpleGraph<>();
             graph.addVertex("Vertex one");
@@ -61,7 +61,7 @@ public class SimpleGraphTest {
     }
 
     @Test
-    public void givenGraphCapacityExhausted_whenAttemptToAddNewVertexIsMade_thenAnExceptionIsThrown() {
+    public void test_givenGraphCapacityExhausted_whenAttemptToAddNewVertexIsMade_thenAnExceptionIsThrown() {
         try {
             SimpleGraph<String> graph = new SimpleGraph<>(1);
             graph.addVertex("Vertex one");
@@ -72,7 +72,7 @@ public class SimpleGraphTest {
     }
 
     @Test
-    public void givenSpecifiedGraphCapacityIsTooLarge_whenItsCreated_thenAnExceptionIsThrown() {
+    public void test_givenSpecifiedGraphCapacityIsTooLarge_whenItsCreated_thenAnExceptionIsThrown() {
         try {
             SimpleGraph<String> graph = new SimpleGraph<>(100000);
         } catch (RuntimeException e) {
@@ -81,7 +81,7 @@ public class SimpleGraphTest {
     }
 
     @Test
-    public void whenAttemptToCreateLoopIsMade_thenAnExceptionIsThrown() {
+    public void test_whenAttemptToCreateLoopIsMade_thenAnExceptionIsThrown() {
         try {
             SimpleGraph<String> graph = buildGraph();
             graph.addEdge("Vertex one", "Vertex one");
