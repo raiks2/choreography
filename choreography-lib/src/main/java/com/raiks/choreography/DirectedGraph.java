@@ -99,6 +99,12 @@ public class DirectedGraph<V> implements Graph<V> {
 
     @Override
     public Deque<V> findPath(V startVertex, V endVertex) {
+        if (!vertexExists(startVertex)) {
+            throw new RuntimeException("The 'from' vertex doesn't exist");
+        }
+        if (!vertexExists(endVertex)) {
+            throw new RuntimeException("The 'to' vertex doesn't exist");
+        }
         boolean[] visited = new boolean[vertexToIndex.size()];
         Deque<V> pathToVertex = new ArrayDeque<>();
         dfs(startVertex, endVertex, visited, pathToVertex);

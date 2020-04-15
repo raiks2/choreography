@@ -46,6 +46,17 @@ public class DirectedGraphTest {
     }
 
     @Test
+    public void test_FindPathWithNonExistentVerticeThrowsException() {
+        try {
+            DirectedGraph<String> graph = new DirectedGraph<>();
+            graph.addVertex("Vertex two");
+            graph.findPath("Vertex one", "Vertex two");
+        } catch (RuntimeException e) {
+            Assert.assertEquals("The 'from' vertex doesn't exist", e.getMessage());
+        }
+    }
+
+    @Test
     public void test_DuplicateVerticesAreDisallowed() {
         try {
             DirectedGraph<String> graph = new DirectedGraph<>();
