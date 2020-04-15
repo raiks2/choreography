@@ -9,17 +9,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-public class SimpleGraph<V> implements Graph<V> {
+public class DirectedGraph<V> implements Graph<V> {
     private Map<V, Integer> vertexToIndex = new HashMap<>();
     private List<V> indexToVertex = new ArrayList<>();
     private int[][] adjacencyMatrix;
     private int mostRecentVertexIndex = 0;
     private int numVertices;
 
-    private static final int DEFAULT_NUM_VERTICES = 50;
+    static final int DEFAULT_NUM_VERTICES = 50;
     static final int MAX_NUM_VERTICES = 1000;
 
-    public SimpleGraph(int numVertices) {
+    public DirectedGraph(int numVertices) {
         if (numVertices > MAX_NUM_VERTICES) {
             throw new RuntimeException(String.format("The maximum number of vertices is %d", MAX_NUM_VERTICES));
         }
@@ -27,7 +27,7 @@ public class SimpleGraph<V> implements Graph<V> {
         this.numVertices = numVertices;
     }
 
-    public SimpleGraph() {
+    public DirectedGraph() {
         this(DEFAULT_NUM_VERTICES);
     }
 
@@ -91,6 +91,10 @@ public class SimpleGraph<V> implements Graph<V> {
 
     boolean vertexExists(V vertex) {
         return vertexToIndex.containsKey(vertex);
+    }
+
+    boolean edgeExists(V from, V to) {
+        return getAdjacentVertices(from).contains(to);
     }
 
     @Override

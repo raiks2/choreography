@@ -6,22 +6,29 @@ import java.util.Deque;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class SimpleGraphTest {
+public class DirectedGraphTest {
     @Test
-    public void test_givenVertexExists_whenItsExistenceIsChecked_thenItIsConfirmed() {
-        SimpleGraph<String> graph = buildGraph();
-        Assert.assertTrue(graph.vertexExists("Vertex five"));
+    public void test_AddVertexSuccessfullyCreatesVertexNotYetExistingInGraph() {
+        DirectedGraph<String> graph = new DirectedGraph<>();
+        graph.addVertex("Vertex one");
+        Assert.assertFalse(graph.vertexExists("Vertex two"));
+        graph.addVertex("Vertex two");
+        Assert.assertTrue(graph.vertexExists("Vertex two"));
     }
 
     @Test
-    public void test_givenVertexDoesntExist_whenItsExistenceIsChecked_thenItIsNotConfirmed() {
-        SimpleGraph<String> graph = buildGraph();
-        Assert.assertFalse(graph.vertexExists("Vertex six"));
+    public void test_AddEdgeSuccessfullyCreatesDirectedEdgeBetweenDistinctVertices() {
+        DirectedGraph<String> graph = new DirectedGraph<>();
+        graph.addVertex("Vertex one");
+        graph.addVertex("Vertex two");
+        graph.addEdge("Vertex one", "Vertex two");
+        Assert.assertTrue(graph.edgeExists("Vertex one", "Vertex two"));
+        Assert.assertFalse(graph.edgeExists("Vertex two", "Vertex one"));
     }
 
     @Test
-    public void test_given_pathExists_whenItsChecked_thenItCanBeDiscovered() {
-        SimpleGraph<String> graph = buildGraph();
+    public void test_FindPathCanDiscoverExistingPath() {
+        DirectedGraph<String> graph = buildGraph();
         Deque<String> pathBetweenVertices = graph.findPath("Vertex two", "Vertex five");
         Assert.assertTrue(pathBetweenVertices.size() == 2);
         Assert.assertTrue(pathBetweenVertices.toString().equals("[Vertex three, Vertex two]"));
@@ -29,9 +36,9 @@ public class SimpleGraphTest {
     }
 
     @Test
-    public void test_given_pathDoesntExist_whenItsChecked_thenItCanNotBeDiscovered() {
-        SimpleGraph<String> graph = buildGraph();
-        // Adding a strongly connected component. Vertex six is unreachable
+    public void test_FindPathCanNotDiscoverNonExistentPath() {
+        DirectedGraph<String> graph = buildGraph();
+        // Adding a strongly connected subcomponent. Vertex six is unreachable
         graph.addVertex("Vertex six");
         graph.addEdge("Vertex six", "Vertex five");
         Deque<String> pathBetweenVertices = graph.findPath("Vertex one", "Vertex six");
@@ -39,9 +46,9 @@ public class SimpleGraphTest {
     }
 
     @Test
-    public void test_givenVertexAlreadyExists_whenAttemptToAddItIsMade_thenAnExceptionIsThrown() {
+    public void test_DuplicateVerticesAreDisallowed() {
         try {
-            SimpleGraph<String> graph = new SimpleGraph<>();
+            DirectedGraph<String> graph = new DirectedGraph<>();
             graph.addVertex("Vertex one");
             graph.addVertex("Vertex one");
         } catch (RuntimeException e) {
@@ -50,9 +57,9 @@ public class SimpleGraphTest {
     }
 
     @Test
-    public void test_givenVertexDoesntExist_whenAttemptToAddEdgeIsMade_thenAnExceptionIsThrown() {
+    public void test_AttemptToCreateEdgeForNonExistentVertexTriggersException() {
         try {
-            SimpleGraph<String> graph = new SimpleGraph<>();
+            DirectedGraph<String> graph = new DirectedGraph<>();
             graph.addVertex("Vertex one");
             graph.addEdge("Vertex one", "Vertex two");
         } catch (RuntimeException e) {
@@ -61,9 +68,9 @@ public class SimpleGraphTest {
     }
 
     @Test
-    public void test_givenGraphCapacityExhausted_whenAttemptToAddNewVertexIsMade_thenAnExceptionIsThrown() {
+    public void test_whenGraphCapacityExhausted_thenExceptionIsThrown() {
         try {
-            SimpleGraph<String> graph = new SimpleGraph<>(1);
+            DirectedGraph<String> graph = new DirectedGraph<>(1);
             graph.addVertex("Vertex one");
             graph.addVertex("Vertex two");
         } catch (RuntimeException e) {
@@ -72,26 +79,26 @@ public class SimpleGraphTest {
     }
 
     @Test
-    public void test_givenSpecifiedGraphCapacityIsTooLarge_whenItsCreated_thenAnExceptionIsThrown() {
+    public void test_AttemptToCreateTooLargeGraphTriggersException() {
         try {
-            SimpleGraph<String> graph = new SimpleGraph<>(100000);
+            DirectedGraph<String> graph = new DirectedGraph<>(100000);
         } catch (RuntimeException e) {
-            Assert.assertEquals("The maximum number of vertices is " + SimpleGraph.MAX_NUM_VERTICES, e.getMessage());
+            Assert.assertEquals("The maximum number of vertices is " + DirectedGraph.MAX_NUM_VERTICES, e.getMessage());
         }
     }
 
     @Test
-    public void test_whenAttemptToCreateLoopIsMade_thenAnExceptionIsThrown() {
+    public void test_AttemptToCreateLoopTriggersException() {
         try {
-            SimpleGraph<String> graph = buildGraph();
+            DirectedGraph<String> graph = buildGraph();
             graph.addEdge("Vertex one", "Vertex one");
         } catch (RuntimeException e) {
             Assert.assertEquals("Loops are not allowed", e.getMessage());
         }
     }
 
-    private SimpleGraph<String> buildGraph() {
-        SimpleGraph<String> graph = new SimpleGraph<>(10);
+    private DirectedGraph<String> buildGraph() {
+        DirectedGraph<String> graph = new DirectedGraph<>(10);
         graph.addVertex("Vertex one");
         graph.addVertex("Vertex two");
         graph.addVertex("Vertex three");
@@ -103,5 +110,4 @@ public class SimpleGraphTest {
         graph.addEdge("Vertex three", "Vertex five");
         return graph;
     }
-
 }
