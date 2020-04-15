@@ -1,7 +1,6 @@
 package com.raiks.choreography;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,10 +28,10 @@ public class DirectedGraphTest {
     @Test
     public void test_FindPathCanDiscoverExistingPath() {
         DirectedGraph<String> graph = buildGraph();
-        Deque<String> pathBetweenVertices = graph.findPath("Vertex two", "Vertex five");
+        List<String> pathBetweenVertices = graph.findPath("Vertex two", "Vertex five");
         Assert.assertTrue(pathBetweenVertices.size() == 2);
         Assert.assertTrue(pathBetweenVertices.toString().equals("[Vertex three, Vertex two]"));
-        Assert.assertTrue(pathBetweenVertices.pop().equals("Vertex three"));
+        Assert.assertTrue(pathBetweenVertices.get(0).equals("Vertex three"));
     }
 
     @Test
@@ -41,7 +40,7 @@ public class DirectedGraphTest {
         // Adding a strongly connected subcomponent. Vertex six is unreachable
         graph.addVertex("Vertex six");
         graph.addEdge("Vertex six", "Vertex five");
-        Deque<String> pathBetweenVertices = graph.findPath("Vertex one", "Vertex six");
+        List<String> pathBetweenVertices = graph.findPath("Vertex one", "Vertex six");
         Assert.assertTrue(pathBetweenVertices.size() == 0);
     }
 

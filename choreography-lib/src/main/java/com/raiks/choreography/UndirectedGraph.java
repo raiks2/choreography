@@ -1,6 +1,6 @@
 package com.raiks.choreography;
 
-import java.util.Deque;
+import java.util.List;
 
 public class UndirectedGraph<V> implements Graph<V> {
     private DirectedGraph directedGraph;
@@ -25,7 +25,7 @@ public class UndirectedGraph<V> implements Graph<V> {
     }
 
     @Override
-    public Deque<V> findPath(V startVertex, V endVertex) {
+    public List<V> findPath(V startVertex, V endVertex) {
         return findPath(startVertex, endVertex);
     }
 

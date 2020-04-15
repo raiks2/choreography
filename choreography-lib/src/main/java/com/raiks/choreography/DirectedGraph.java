@@ -74,28 +74,29 @@ public class DirectedGraph<V> implements Graph<V> {
     }
 
     @Override
-    public Deque<V> findPath(V startVertex, V endVertex) {
+    public List<V> findPath(V startVertex, V endVertex) {
         if (!vertexExists(startVertex)) {
             throw new RuntimeException("The 'from' vertex doesn't exist");
         }
         if (!vertexExists(endVertex)) {
             throw new RuntimeException("The 'to' vertex doesn't exist");
         }
-        boolean[] visited = new boolean[vertexToIndex.size()];
+        int totalNumVertices = vertexToIndex.size();
+        boolean[] visitedVertices = new boolean[totalNumVertices];
         Deque<V> pathToVertex = new ArrayDeque<>();
-        doDFS(startVertex, endVertex, visited, pathToVertex);
+        doDFS(startVertex, endVertex, visitedVertices, pathToVertex);
         System.err.println("\npath =" + pathToVertex.toString());
-        return pathToVertex;
+        return new ArrayList(pathToVertex);
     }
 
     /**
      * Performs the depth-first search of the needle. If needle if found, returns true, false otherwise
      * After a method call, pathToVertex contains a path to the needle if it was found, or en empty collection
      */
-    private boolean doDFS(V startVertex, V needle, boolean[] visited, Deque<V> pathToVertex) {
+    private boolean doDFS(V startVertex, V needle, boolean[] visitedVertices, Deque<V> pathToVertex) {
         System.out.print(startVertex + " ");
         int index = vertexToIndex.get(startVertex);
-        visited[index] = true;
+        visitedVertices[index] = true;
         boolean found = startVertex.equals(needle);
         if (found) {
             return true;
@@ -107,8 +108,8 @@ public class DirectedGraph<V> implements Graph<V> {
         List<V> ajacentVertices = getAdjacentVertices(startVertex);
         for(V ajacentVertex : ajacentVertices) {
             int aIndex = vertexToIndex.get(ajacentVertex);
-            if(!visited[aIndex]) {
-                found = doDFS(ajacentVertex, needle, visited, pathToVertex);
+            if(!visitedVertices[aIndex]) {
+                found = doDFS(ajacentVertex, needle, visitedVertices, pathToVertex);
                 if (found) {
                     return true;
                 }
