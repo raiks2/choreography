@@ -8,7 +8,7 @@ import org.junit.Test;
 
 public class UndirectedGraphTest {
     @Test
-    public void test_AddEdgeSuccessfullyCreatesDirectedEdgeBetweenDistinctVertices() {
+    public void test_AddEdgeSuccessfullyCreatesUndirectedEdgeBetweenDistinctVertices() {
         UndirectedGraph<String> graph = new UndirectedGraph<>();
         graph.addVertex("Vertex one");
         graph.addVertex("Vertex two");
