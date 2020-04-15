@@ -25,11 +25,6 @@ public class UndirectedGraph<V> implements Graph<V> {
     }
 
     @Override
-    public void bfs(V startVertex) {
-        directedGraph.bfs(startVertex);
-    }
-
-    @Override
     public Deque<V> findPath(V startVertex, V endVertex) {
         return findPath(startVertex, endVertex);
     }

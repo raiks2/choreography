@@ -65,30 +65,6 @@ public class DirectedGraph<V> implements Graph<V> {
         mostRecentVertexIndex++;
     }
 
-    @Override
-    public void bfs(V startVertex) {
-        Queue<V> queue = new LinkedList<>();
-        boolean[] visited = new boolean[vertexToIndex.size()];
-
-        queue.add(startVertex);
-        int index = vertexToIndex.get(startVertex);
-        visited[index] = true;
-
-        while(!queue.isEmpty()) {
-            V queuedVertex = queue.poll();
-            System.out.print(queuedVertex + " ");
-
-            List<V> ajacentVertices = getAdjacentVertices(queuedVertex);
-            for(V ajacentVertex : ajacentVertices) {
-                int aIndex = vertexToIndex.get(ajacentVertex);
-                if(!visited[aIndex]) {
-                    queue.add(ajacentVertex);
-                    visited[aIndex] = true;
-                }
-            }
-        }
-    }
-
     boolean vertexExists(V vertex) {
         return vertexToIndex.containsKey(vertex);
     }
@@ -107,7 +83,7 @@ public class DirectedGraph<V> implements Graph<V> {
         }
         boolean[] visited = new boolean[vertexToIndex.size()];
         Deque<V> pathToVertex = new ArrayDeque<>();
-        dfs(startVertex, endVertex, visited, pathToVertex);
+        doDFS(startVertex, endVertex, visited, pathToVertex);
         System.err.println("\npath =" + pathToVertex.toString());
         return pathToVertex;
     }
@@ -116,7 +92,7 @@ public class DirectedGraph<V> implements Graph<V> {
      * Performs the depth-first search of the needle. If needle if found, returns true, false otherwise
      * After a method call, pathToVertex contains a path to the needle if it was found, or en empty collection
      */
-    private boolean dfs(V startVertex, V needle, boolean[] visited, Deque<V> pathToVertex) {
+    private boolean doDFS(V startVertex, V needle, boolean[] visited, Deque<V> pathToVertex) {
         System.out.print(startVertex + " ");
         int index = vertexToIndex.get(startVertex);
         visited[index] = true;
@@ -125,19 +101,21 @@ public class DirectedGraph<V> implements Graph<V> {
             return true;
         }
 
+        // Add a vertex to the path leading to the needle
         pathToVertex.push(startVertex);
 
         List<V> ajacentVertices = getAdjacentVertices(startVertex);
         for(V ajacentVertex : ajacentVertices) {
             int aIndex = vertexToIndex.get(ajacentVertex);
             if(!visited[aIndex]) {
-                found = dfs(ajacentVertex, needle, visited, pathToVertex);
+                found = doDFS(ajacentVertex, needle, visited, pathToVertex);
                 if (found) {
                     return true;
                 }
             }
         }
 
+        // If nothing is found, we don't need to know the path to the last checked vertex
         pathToVertex.pop();
         return false;
     }
