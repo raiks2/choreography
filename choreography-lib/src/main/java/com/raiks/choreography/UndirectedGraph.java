@@ -33,4 +33,8 @@ public class UndirectedGraph<V> implements Graph<V> {
     public Deque<V> findPath(V startVertex, V endVertex) {
         return findPath(startVertex, endVertex);
     }
+
+    boolean edgeExists(V from, V to) {
+        return directedGraph.edgeExists(from, to);
+    }
 }
