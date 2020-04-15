@@ -80,6 +80,16 @@ public class SimpleGraphTest {
         }
     }
 
+    @Test
+    public void whenAttemptToCreateLoopIsMade_thenAnExceptionIsThrown() {
+        try {
+            SimpleGraph<String> graph = buildGraph();
+            graph.addEdge("Vertex one", "Vertex one");
+        } catch (RuntimeException e) {
+            Assert.assertEquals("Loops are not allowed", e.getMessage());
+        }
+    }
+
     private SimpleGraph<String> buildGraph() {
         SimpleGraph<String> graph = new SimpleGraph<>(10);
         graph.addVertex("Vertex one");

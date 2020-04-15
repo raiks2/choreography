@@ -39,6 +39,9 @@ public class SimpleGraph<V> implements Graph<V> {
         if (!vertexToIndex.containsKey(to)) {
             throw new RuntimeException("The 'to' vertex you're trying to create an edge for doesn't exist");
         }
+        if (from.equals(to)) {
+            throw new RuntimeException("Loops are not allowed");
+        }
         int fromIndex = vertexToIndex.get(from);
         int toIndex = vertexToIndex.get(to);
         markEdgeInAdjecencyMatrix(fromIndex, toIndex);
