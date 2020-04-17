@@ -54,6 +54,9 @@ public class DirectedGraphTest {
         graph.addEdge("Vertex one", "Vertex seven");
         List<String> pathBetweenVertices = graph.findPath("Vertex one", "Vertex seven");
     }
+
+    @Test
+    public void testFailure_FindPathWithNonExistentVerticeThrowsException() {
         try {
             DirectedGraph<String> graph = new DirectedGraph<>();
             graph.addVertex("Vertex two");
@@ -64,7 +67,7 @@ public class DirectedGraphTest {
     }
 
     @Test
-    public void test_DuplicateVerticesAreDisallowed() {
+    public void testFailure_DuplicateVerticesAreDisallowed() {
         try {
             DirectedGraph<String> graph = new DirectedGraph<>();
             graph.addVertex("Vertex one");
@@ -75,7 +78,7 @@ public class DirectedGraphTest {
     }
 
     @Test
-    public void test_AttemptToCreateEdgeForNonExistentVertexTriggersException() {
+    public void testFailure_AttemptToCreateEdgeForNonExistentVertexTriggersException() {
         try {
             DirectedGraph<String> graph = new DirectedGraph<>();
             graph.addVertex("Vertex one");
@@ -86,7 +89,7 @@ public class DirectedGraphTest {
     }
 
     @Test
-    public void test_whenGraphCapacityExhausted_thenExceptionIsThrown() {
+    public void testFailure_whenGraphCapacityExhausted_thenExceptionIsThrown() {
         try {
             DirectedGraph<String> graph = new DirectedGraph<>(1);
             graph.addVertex("Vertex one");
@@ -97,7 +100,7 @@ public class DirectedGraphTest {
     }
 
     @Test
-    public void test_AttemptToCreateTooLargeGraphTriggersException() {
+    public void testFailure_AttemptToCreateTooLargeGraphTriggersException() {
         try {
             DirectedGraph<String> graph = new DirectedGraph<>(100000);
         } catch (RuntimeException e) {
@@ -106,7 +109,7 @@ public class DirectedGraphTest {
     }
 
     @Test
-    public void test_AttemptToCreateLoopTriggersException() {
+    public void testFailure_AttemptToCreateLoopTriggersException() {
         try {
             DirectedGraph<String> graph = buildGraph();
             graph.addEdge("Vertex one", "Vertex one");
