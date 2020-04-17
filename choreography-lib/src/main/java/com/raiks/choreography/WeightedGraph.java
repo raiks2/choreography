@@ -34,6 +34,14 @@ public class WeightedGraph<V> implements Graph<V> {
         return graph.findPath(startVertex, endVertex);
     }
 
+    int getEdgeWeight(V from, V to) {
+        Integer weight = edgeToWeight.get(new Edge(from, to));
+        if (weight == null) {
+            throw new RuntimeException("Edge you try to get a weight for doesn't exist");
+        }
+        return weight;
+    }
+
     private static class Edge<V> {
         private V from;
         private V to;
@@ -43,16 +51,23 @@ public class WeightedGraph<V> implements Graph<V> {
             this.to = to;
         }
 
+        @Override
+        public String toString() {
+            return "(" + from + ", " + to + ")";
+        }
+
+        @Override
         public boolean equals(Object o) {
            if (o == this)
                 return true;
             if (!(o instanceof Edge))
                 return false;
             Edge other = (Edge)o;
-            return other.from.equals(other.to);
+            return other.from.equals(from) && other.to.equals(to);
         }
 
-        public int hashcode() {
+        @Override
+        public int hashCode() {
             return Objects.hash(from, to);
         }
     }
