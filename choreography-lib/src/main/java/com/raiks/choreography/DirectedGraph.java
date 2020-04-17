@@ -97,8 +97,8 @@ public class DirectedGraph<V> implements Graph<V> {
         System.out.print(startVertex + " ");
         int index = vertexToIndex.get(startVertex);
         visitedVertices[index] = true;
-        boolean found = startVertex.equals(needle);
-        if (found) {
+        boolean vertexFound = startVertex.equals(needle);
+        if (vertexFound) {
             return true;
         }
 
@@ -108,11 +108,13 @@ public class DirectedGraph<V> implements Graph<V> {
         List<V> ajacentVertices = getAdjacentVertices(startVertex);
         for(V ajacentVertex : ajacentVertices) {
             int aIndex = vertexToIndex.get(ajacentVertex);
-            if(!visitedVertices[aIndex]) {
-                found = doDFS(ajacentVertex, needle, visitedVertices, pathToVertex);
-                if (found) {
-                    return true;
-                }
+            if(visitedVertices[aIndex]) {
+                continue;
+            }
+
+            vertexFound = doDFS(ajacentVertex, needle, visitedVertices, pathToVertex);
+            if (vertexFound) {
+                return true;
             }
         }
 
