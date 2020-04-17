@@ -45,7 +45,15 @@ public class DirectedGraphTest {
     }
 
     @Test
-    public void test_FindPathWithNonExistentVerticeThrowsException() {
+    public void test_FindPathCanHandleGraphCycle() {
+        DirectedGraph<String> graph = buildGraph();
+        graph.addVertex("Vertex six");
+        graph.addEdge("Vertex five", "Vertex six");
+        graph.addEdge("Vertex six", "Vertex three");
+        graph.addVertex("Vertex seven");
+        graph.addEdge("Vertex one", "Vertex seven");
+        List<String> pathBetweenVertices = graph.findPath("Vertex one", "Vertex seven");
+    }
         try {
             DirectedGraph<String> graph = new DirectedGraph<>();
             graph.addVertex("Vertex two");
