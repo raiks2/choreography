@@ -85,7 +85,6 @@ public class DirectedGraph<V> implements Graph<V> {
         boolean[] visitedVertices = new boolean[totalNumVertices];
         Deque<V> pathToVertex = new ArrayDeque<>();
         doDFS(startVertex, endVertex, visitedVertices, pathToVertex);
-        System.err.println("\npath =" + pathToVertex.toString());
         return new ArrayList(pathToVertex);
     }
 
@@ -94,7 +93,6 @@ public class DirectedGraph<V> implements Graph<V> {
      * After a method call, pathToVertex contains a path to the needle if it was found, or en empty collection
      */
     private boolean doDFS(V startVertex, V needle, boolean[] visitedVertices, Deque<V> pathToVertex) {
-        System.out.print(startVertex + " ");
         int index = vertexToIndex.get(startVertex);
         visitedVertices[index] = true;
         boolean vertexFound = startVertex.equals(needle);
