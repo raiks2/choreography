@@ -93,6 +93,7 @@ public class DirectedGraph<V> implements Graph<V> {
      * After a method call, pathToVertex contains a path to the needle if it was found, or en empty collection
      */
     private boolean doDFS(V startVertex, V needle, boolean[] visitedVertices, Deque<V> pathToVertex) {
+        pathToVertex.push(startVertex);
         int index = vertexToIndex.get(startVertex);
         visitedVertices[index] = true;
         boolean vertexFound = startVertex.equals(needle);
@@ -101,7 +102,7 @@ public class DirectedGraph<V> implements Graph<V> {
         }
 
         // Add a vertex to the path leading to the needle
-        pathToVertex.push(startVertex);
+        //pathToVertex.push(startVertex);
 
         List<V> ajacentVertices = getAdjacentVertices(startVertex);
         for(V ajacentVertex : ajacentVertices) {

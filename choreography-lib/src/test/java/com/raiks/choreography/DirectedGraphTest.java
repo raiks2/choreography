@@ -29,9 +29,10 @@ public class DirectedGraphTest {
     public void test_FindPathCanDiscoverExistingPath() {
         DirectedGraph<String> graph = buildGraph();
         List<String> pathBetweenVertices = graph.findPath("Vertex two", "Vertex five");
-        Assert.assertTrue(pathBetweenVertices.size() == 2);
-        Assert.assertTrue(pathBetweenVertices.toString().equals("[Vertex three, Vertex two]"));
-        Assert.assertTrue(pathBetweenVertices.get(0).equals("Vertex three"));
+        List<String> expectedPath = List.of("Vertex five", "Vertex three", "Vertex two");
+        Assert.assertTrue(pathBetweenVertices.size() == expectedPath.size());
+        Assert.assertTrue(pathBetweenVertices.toString().equals(expectedPath.toString()));
+        Assert.assertTrue(pathBetweenVertices.get(0).equals("Vertex five"));
     }
 
     @Test
