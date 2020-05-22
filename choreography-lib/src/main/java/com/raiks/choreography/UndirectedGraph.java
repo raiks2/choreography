@@ -26,7 +26,7 @@ public class UndirectedGraph<V> implements Graph<V> {
 
     @Override
     public List<V> findPath(V startVertex, V endVertex) {
-        return findPath(startVertex, endVertex);
+        return directedGraph.findPath(startVertex, endVertex);
     }
 
     boolean edgeExists(V from, V to) {
