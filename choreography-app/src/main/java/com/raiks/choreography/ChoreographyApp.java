@@ -21,14 +21,14 @@ public class ChoreographyApp {
         graph.addEdge("Charlotte", "Atlanta");
         graph.addEdge("Nashville", "Atlanta");
 
-        System.out.println("You can travel from Boston to Atlanta via:");
+        System.out.println("You can travel from Boston to Atlanta this way:");
         List<String> path = graph.findPath("Boston", "Atlanta");
         Collections.reverse(path);
         System.out.println(path);
 
         System.out.println("----------------------");
 
-        System.out.println("You can travel from Boston to Honolulu via:");
+        System.out.println("You can travel from Boston to Honolulu this way:");
         path = graph.findPath("Boston", "Honolulu");
         Collections.reverse(path);
         System.out.println(path);
