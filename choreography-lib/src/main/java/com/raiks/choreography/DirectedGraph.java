@@ -56,6 +56,7 @@ public class DirectedGraph<V> implements Graph<V> {
         if (vertexToIndex.containsKey(v)) {
             throw new RuntimeException("Vertex already exists");
         }
+
         boolean capacityExhausted = mostRecentVertexIndex == numVertices;
         if (capacityExhausted) {
             throw new RuntimeException("Graph capacity exhaused");
@@ -85,7 +86,7 @@ public class DirectedGraph<V> implements Graph<V> {
         boolean[] visitedVertices = new boolean[totalNumVertices];
         Deque<V> pathToVertex = new ArrayDeque<>();
         doDFS(startVertex, endVertex, visitedVertices, pathToVertex);
-        return new ArrayList(pathToVertex);
+        return new ArrayList<>(pathToVertex);
     }
 
     /**
