@@ -1,6 +1,6 @@
-# Synopsis
+# Choreography
 
-Choreography is a super simple graph library. Contains classes implementing undirected and directed graphs that support the following operations:
+A super simple graph library. Contains classes implementing undirected and directed graphs that support the following operations:
 
 * addEdge()
 * addVertex()
